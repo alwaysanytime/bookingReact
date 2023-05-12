@@ -19,6 +19,14 @@ import Collapse from "@mui/material/Collapse";
 import ClosedCaptionIcon from "@mui/icons-material/ClosedCaption";
 import ExplicitIcon from "@mui/icons-material/Explicit";
 
+import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecordOutlined';
+import CarRentalOutlinedIcon from '@mui/icons-material/CarRentalOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
+import GroupTwoToneIcon from '@mui/icons-material/GroupTwoTone';
+import LocalGroceryStoreTwoToneIcon from '@mui/icons-material/LocalGroceryStoreTwoTone';
+import LibraryBooksTwoToneIcon from '@mui/icons-material/LibraryBooksTwoTone';
+
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -152,7 +160,12 @@ export default function PrivateLayout({ children }) {
   const openMenu = Boolean(anchorEl);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [openList, setOpenList] = React.useState({ skillUp: false });
+  const [openRentalList, setOpenRentalList] = React.useState({ Rental: false });
+  const [openDashList, setOpenDashList] = React.useState({ Dash: false });
+  const [openConfigList, setOpenConfigList] = React.useState({ Config: false });
+  const [openCalendarList, setOpenCalendarList] = React.useState({ Calendar: false });
+  const [openCustomerList, setOpenCustomerList] = React.useState({ Customer: false });
+  const [openMarketList, setOpenMarketList] = React.useState({ Market: false });
   const { isLoggedin } = useSelector((state) => state.auth);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -243,88 +256,243 @@ export default function PrivateLayout({ children }) {
           sx={{ width: "100%", bgcolor: "background.paper" }}
           component="nav"
         >
-          <ListItemButton onClick={() => navigator("/dashboard")}>
+          {/* <ListItemButton onClick={() => navigator("/dashboard")}>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
-          </ListItemButton>
-          <ListItemButton onClick={() => navigator("/income")}>
-            <ListItemIcon>
-              <PaidIcon />
-            </ListItemIcon>
-            <ListItemText primary="Income" />
-          </ListItemButton>
-
-          <ListItemButton onClick={() => navigator("/expense")}>
-            <ListItemIcon>
-              <AccountBalanceWalletIcon />
-            </ListItemIcon>
-            <ListItemText primary="Expense" />
-          </ListItemButton>
+          </ListItemButton> */}
 
           <ListItemButton
             onClick={() =>
-              setOpenList({ ...openList, skillUp: !openList.skillUp })
-            }
-          >
+              setOpenDashList({ ...openDashList, Dash: !openDashList.Dash })
+            }>
             <ListItemIcon>
-              <SchoolIcon />
+              <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="Skill Up" />
-            {openList.skillUp ? <ExpandLess /> : <ExpandMore />}
+            <ListItemText primary="Dashboard" />
+            {openDashList.Dash ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-          <Collapse in={openList.skillUp} timeout="auto" unmountOnExit>
+          <Collapse in={openDashList.Dash} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
+              <ListItemButton onClick={() => navigator("/dashboard")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
               <ListItemButton onClick={() => navigator("/skill-up/code")}>
                 <ListItemIcon>
-                  <ClosedCaptionIcon />
+                  <FiberManualRecordOutlinedIcon />
                 </ListItemIcon>
-                <ListItemText primary="Code" />
-              </ListItemButton>
-              <ListItemButton onClick={() => navigator("/skill-up/english")}>
-                <ListItemIcon>
-                  <ExplicitIcon />
-                </ListItemIcon>
-                <ListItemText primary="English" />
+                <ListItemText primary="Manifest" />
               </ListItemButton>
               <Divider />
             </List>
           </Collapse>
 
-          <ListItemButton onClick={() => navigator("/share-things")}>
+          <ListItemButton
+            onClick={() =>
+              setOpenRentalList({ ...openRentalList, Rental: !openRentalList.Rental })
+            }>
             <ListItemIcon>
-              <ShareIcon />
+              <CarRentalOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary="Share Things" />
+            <ListItemText primary="Rental Products" />
+            {openRentalList.Rental ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-
-          <ListItemButton onClick={() => navigator("/report")}>
-            <ListItemIcon>
-              <DocumentScannerIcon />
-            </ListItemIcon>
-            <ListItemText primary="Report" />
-          </ListItemButton>
-
-          <ListItemButton onClick={() => navigator("/plan")}>
-            <ListItemIcon>
-              <ScheduleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Plan" />
-          </ListItemButton>
-          {/* <Collapse in={true} timeout="auto" unmountOnExit>
+          <Collapse in={openRentalList.Rental} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton>
-                <ListItemIcon></ListItemIcon>
-                <ListItemText primary="By Team" />
+              <ListItemButton onClick={() => navigator("/skill-up/code")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Create/Edit rental" />
               </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon></ListItemIcon>
-                <ListItemText primary="By User" />
+              <ListItemButton onClick={() => navigator("/skill-up/english")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Equipment" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/english")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Change season" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/english")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Duration" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/english")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Prices" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/english")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Availability" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/english")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Questions" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/english")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Advanced" />
               </ListItemButton>
               <Divider />
             </List>
-          </Collapse> */}
+          </Collapse>
+
+          <ListItemButton
+            onClick={() =>
+              setOpenConfigList({ ...openConfigList, Config: !openConfigList.Config })
+            }>
+            <ListItemIcon>
+              <SettingsOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Configuration" />
+            {openConfigList.Config ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openConfigList.Config} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton onClick={() => navigator("/dashboard")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Widget builder" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/code")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Email templates" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/code")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Tickets" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/code")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Assets" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/code")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Taxes" />
+              </ListItemButton>
+              <Divider />
+            </List>
+          </Collapse>
+          
+          <ListItemButton
+            onClick={() =>
+              setOpenCalendarList({ ...openCalendarList, Calendar: !openCalendarList.Calendar })
+            }>
+            <ListItemIcon>
+              <CalendarMonthTwoToneIcon />
+            </ListItemIcon>
+            <ListItemText primary="Calendar" />
+            {openCalendarList.Calendar ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openCalendarList.Calendar} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton onClick={() => navigator("/dashboard")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Rental Bookings" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/code")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Rental Availability" />
+              </ListItemButton>
+              <Divider />
+            </List>
+          </Collapse>
+          
+          <ListItemButton
+            onClick={() =>
+              setOpenCustomerList({ ...openCustomerList, Customer: !openCustomerList.Customer })
+            }>
+            <ListItemIcon>
+              <GroupTwoToneIcon />
+            </ListItemIcon>
+            <ListItemText primary="Customers" />
+            {openCustomerList.Customer ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openCustomerList.Customer} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton onClick={() => navigator("/dashboard")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Search" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/code")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Booking" />
+              </ListItemButton>
+              <Divider />
+            </List>
+          </Collapse>
+
+          <ListItemButton
+            onClick={() =>
+              setOpenMarketList({ ...openMarketList, Market: !openMarketList.Market })
+            }>
+            <ListItemIcon>
+              <LocalGroceryStoreTwoToneIcon />
+            </ListItemIcon>
+            <ListItemText primary="Marketing" />
+            {openMarketList.Market ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openMarketList.Market} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton onClick={() => navigator("/dashboard")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Reviews" />
+              </ListItemButton>
+              <ListItemButton onClick={() => navigator("/skill-up/code")}>
+                <ListItemIcon>
+                  <FiberManualRecordOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Aandoned carts" />
+              </ListItemButton>
+              <Divider />
+            </List>
+          </Collapse>
+
+
+          <ListItemButton onClick={() => navigator("/expense")}>
+            <ListItemIcon>
+              <LibraryBooksTwoToneIcon />
+            </ListItemIcon>
+            <ListItemText primary="Reports" />
+          </ListItemButton>
+          
         </List>
       </Drawer>
       <Box

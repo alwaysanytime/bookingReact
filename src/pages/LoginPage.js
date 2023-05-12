@@ -32,22 +32,15 @@ const LoginPage = () => {
     console.log(data);
     try {
       const res = await apis.login(data);
-      console.log('res=>',res);
+      console.log('res=>',res.data.data);
       // store.dispatch({ type: LOGIN_SUCCESS, payload: res.data.user });
-
-      if (data.email === tempemail && data.password === tempPassword) {
-        enqueueSnackbar({
-          variant: "success",
-          message: "You have logged in successfully.",
-        });
-        store.dispatch({ type: LOGIN_SUCCESS, payload: {} });
-        navigate("/dashboard");
-      } else {
-        enqueueSnackbar({
-          variant: "error",
-          message: "Invalid credentials.",
-        });
-      }
+      enqueueSnackbar({
+        variant: "success",
+        message: "You have logged in successfully.",
+      });
+      store.dispatch({ type: LOGIN_SUCCESS, payload: {} });
+      navigate("/dashboard");
+     
     } catch (err) {
       store.dispatch({ type: LOGIN_FALIED });
       enqueueSnackbar({
@@ -64,7 +57,7 @@ const LoginPage = () => {
           <Typography variant="h4" sx={{ textAlign: "center" }}>
             Welcome to Login!
           </Typography>
-          <Card sx={{bgcolor: theme.palette.warning.light}}>
+          {/* <Card sx={{bgcolor: theme.palette.warning.light}}>
             <CardContent>
               <Stack spacing={1}>
                 <Typography variant="p">
@@ -75,7 +68,7 @@ const LoginPage = () => {
                 </Typography>
               </Stack>
             </CardContent>
-          </Card>
+          </Card> */}
           <TextField
             variant="standard"
             label="User ID"
