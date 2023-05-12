@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SERVER_URL = process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:5000";
+const SERVER_URL = process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000";
 
 const jwtInterceoptor = axios.create({});
 
@@ -43,8 +43,8 @@ jwtInterceoptor.interceptors.response.use(
   }
 );
 
-const login = (data) => axios.post(`${SERVER_URL}/api/auth/login`, data);
-const signup = (data) => axios.post(`${SERVER_URL}/api/auth/signup`, data);
+const login = (data) => axios.post(`${SERVER_URL}/api/v1/login`, data);
+const signup = (data) => axios.post(`${SERVER_URL}/api/v1/register`, data);
 const getUsers = () => jwtInterceoptor.get(`${SERVER_URL}/api/auth/user`);
 const getIncomes = () => jwtInterceoptor.get(`${SERVER_URL}/api/auth/income`);
 const getexpenses = () => jwtInterceoptor.get(`${SERVER_URL}/api/auth/expense`);

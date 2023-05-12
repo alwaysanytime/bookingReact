@@ -1,7 +1,7 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import PrivateLayout from "../layout/PrivateLayout";
 import DashBoardPage from "../pages/DashboardPage";
-import Reports from "../pages/Reports";
+// import Reports from "../pages/Reports";
 import ExpensePage from "../pages/ExpensePage";
 import ReportPage from "../pages/ReportPage";
 import ShareThingsPage from "../pages/ShareThingsPage";
@@ -21,10 +21,10 @@ export const routes = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateLayout children={<DashBoardPage />} />,
   },
-  {
-    path: "/income",
-    element: <PrivateLayout children={<Reports />} />,
-  },
+  // {
+  //   path: "/income",
+  //   element: <PrivateLayout children={<Reports />} />,
+  // },
   {
     path: "/expense",
     element: <PrivateLayout children={<ExpensePage />} />,

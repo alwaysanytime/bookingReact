@@ -25,16 +25,19 @@ const SignUpPage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
-      // const res = await apis.signup(data);
+      const res = await apis.signup(data);
+      console.log('register->',res);
       enqueueSnackbar({
         variant: "success",
         message: "You have registerd successfully, Please wait for validation.",
       });
     } catch (err) {
+      console.log(err);
       enqueueSnackbar({
         variant: "error",
-        message: err.message,
+        message: err.response.data.message,
       });
     }
   };
@@ -47,18 +50,18 @@ const SignUpPage = () => {
           </Typography>
           <TextField
             variant="standard"
-            label="User ID"
+            label="Email"
             type="text"
             helperText="At least 6 characters"
-            error={errors.userId !== undefined}
-            {...register("userId", { required: true, minLength: 6 })}
+            error={errors.email !== undefined}
+            {...register("email", { required: true, minLength: 6 })}
           />
           <TextField
             variant="standard"
-            label="Fullname"
+            label="Username"
             type="text"
-            error={errors.fullname !== undefined}
-            {...register("fullname", { required: true })}
+            error={errors.username !== undefined}
+            {...register("username", { required: true })}
           />
           <TextField
             variant="standard"

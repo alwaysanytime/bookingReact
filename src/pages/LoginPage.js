@@ -16,7 +16,7 @@ import { LOGIN_FALIED, LOGIN_SUCCESS } from "../redux/actionTypes";
 import { useNavigate } from "react-router-dom";
 import { apis } from "../apis";
 
-const tempUserId = "codechef";
+const tempemail = "codechef";
 const tempPassword = "123123";
 
 const LoginPage = () => {
@@ -29,11 +29,13 @@ const LoginPage = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const onSubmit = async (data) => {
+    console.log(data);
     try {
-      // const res = await apis.login(data);
+      const res = await apis.login(data);
+      console.log('res=>',res);
       // store.dispatch({ type: LOGIN_SUCCESS, payload: res.data.user });
 
-      if (data.userId === tempUserId && data.password === tempPassword) {
+      if (data.email === tempemail && data.password === tempPassword) {
         enqueueSnackbar({
           variant: "success",
           message: "You have logged in successfully.",
@@ -50,7 +52,7 @@ const LoginPage = () => {
       store.dispatch({ type: LOGIN_FALIED });
       enqueueSnackbar({
         variant: "error",
-        message: err.message,
+        message: err.response.data.message,
       });
     }
   };
@@ -66,7 +68,7 @@ const LoginPage = () => {
             <CardContent>
               <Stack spacing={1}>
                 <Typography variant="p">
-                  Temp UserId: <strong>{tempUserId}</strong>
+                  Temp email: <strong>{tempemail}</strong>
                 </Typography>
                 <Typography variant="p">
                   Temp password: <strong>{tempPassword}</strong>
@@ -79,8 +81,8 @@ const LoginPage = () => {
             label="User ID"
             type="text"
             helperText="At least 6 characters"
-            error={errors.userId !== undefined}
-            {...register("userId", { minLength: 6, required: true })}
+            error={errors.email !== undefined}
+            {...register("email", { minLength: 6, required: true })}
           />
 
           <TextField
