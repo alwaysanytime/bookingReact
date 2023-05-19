@@ -1,17 +1,10 @@
-import {
-  Box,
-  Button,
-  Link,
-  MenuItem,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { _office, _companies, _team } from "../constants";
+import { Box, Button, Link, Stack, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
 import { useSnackbar } from "notistack";
 import { apis } from "../apis";
+import PasswordField from "../components/PasswordField";
+import { strings } from "../constants/strings";
 
 const SignUpPage = () => {
   const {
@@ -25,126 +18,84 @@ const SignUpPage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const res = await apis.signup(data);
-      console.log('register->',res);
       enqueueSnackbar({
         variant: "success",
-        message: "You have registerd successfully, Please wait for validation.",
+        message: res.data?.message,
       });
     } catch (err) {
-      console.log(err);
       enqueueSnackbar({
         variant: "error",
-        message: err.response.data.message,
+        message: err.response?.data.message || strings.SERVER_ERROR,
       });
     }
   };
   return (
     <Box maxWidth={400} minWidth={400}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack direction="column" spacing={2}>
-          <Typography variant="h4" sx={{ textAlign: "center" }}>
-            Welcome to Sign Up!
-          </Typography>
-          <TextField
-            variant="standard"
-            label="Email"
-            type="text"
-            helperText="At least 6 characters"
-            error={errors.email !== undefined}
-            {...register("email", { required: true, minLength: 6 })}
-          />
-          <TextField
-            variant="standard"
-            label="Username"
-            type="text"
-            error={errors.username !== undefined}
-            {...register("username", { required: true })}
-          />
-          <TextField
-            variant="standard"
-            label="Password"
-            type="password"
-            error={errors.password !== undefined}
-            helperText="At least 6 characters"
-            {...register("password", { required: true, minLength: 6 })}
-          />
-          <TextField
-            variant="standard"
-            label="Confirm Password"
-            error={errors.confirmPassword !== undefined}
-            type="password"
-            helperText={
-              errors.confirmPassword
-                ? errors.confirmPassword.type === "required" ||
-                  errors.confirmPassword.type === "minLength"
-                  ? "At least 6 characters"
-                  : errors.confirmPassword.message
-                : "At least 6 characters"
-            }
-            {...register("confirmPassword", {
-              required: true,
-              minLength: 6,
-              validate: (value) =>
-                value === password.current ||
-                "The confirm password does not match",
-            })}
-          />
-          <TextField
-            select
-            variant="standard"
-            type="text"
-            defaultValue={_companies[0].value}
-            label="Company"
-            {...register("company")}
-          >
-            {_companies.map((option, index) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            select
-            variant="standard"
-            type="text"
-            defaultValue={_office[3].value}
-            label="Office"
-            {...register("office")}
-          >
-            {_office.map((option, index) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            select
-            variant="standard"
-            type="text"
-            defaultValue={_team[0].value}
-            label="Team"
-            {...register("team")}
-          >
-            {_team.map((option, index) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <Button variant="contained" type="submit">
-            Sign Up
-          </Button>
-          <Stack direction="row" spacing={2} alignItems="center">
-            <Typography variant="p">Already have an account?</Typography>
-            <Link href="/login" fontWeight="bold">
-              Login
-            </Link>
-          </Stack>
+      <Stack
+        direction="column"
+        spacing={2}
+        onSubmit={handleSubmit(onSubmit)}
+        component="form"
+      >
+        <Typography variant="h4" sx={{ textAlign: "center" }}>
+          Welcome to Sign Up!
+        </Typography>
+        <TextField
+          variant="standard"
+          label="Email"
+          helperText={errors.email && errors.email.message}
+          error={Boolean(errors.email)}
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "Invalid email address",
+            },
+          })}
+        />
+        <TextField
+          variant="standard"
+          label="Username"
+          type="text"
+          error={Boolean(errors.username)}
+          helperText={errors.username && errors.username.message}
+          {...register("username", { required: "Username is required" })}
+        />
+        <PasswordField
+          variant="standard"
+          label="Password"
+          error={Boolean(errors.password)}
+          helperText={errors.password && errors.password.message}
+          register={register("password", {
+            required: true,
+            minLength: { value: 6, message: "At least 6 characters" },
+          })}
+        />
+        <PasswordField
+          variant="standard"
+          label="Confirm Password"
+          error={Boolean(errors.confirmPassword)}
+          helperText={errors.confirmPassword && errors.confirmPassword.message}
+          register={register("confirmPassword", {
+            required: "Confirm password is required",
+            minLength: { value: 6, message: "At least 6 characters" },
+            validate: (value) =>
+              value === password.current ||
+              "The confirm password does not match",
+          })}
+        />
+        <Button variant="contained" type="submit">
+          Sign Up
+        </Button>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Typography variant="p">Already have an account?</Typography>
+          <Link href="/login" fontWeight="bold">
+            Login
+          </Link>
         </Stack>
-      </form>
+      </Stack>
     </Box>
   );
 };

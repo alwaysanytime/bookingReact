@@ -1,15 +1,15 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 
-const Reports = () => {
+const Rentalavailability = () => {
   // const [topMembers, setTopMembers] = useState([])
   const theme = useTheme();
 
   return (
     <Box>
-      <Typography variant="h5">Welcome to Reports Page!</Typography>
+      <Typography variant="h5">Welcome to Rental availability Page!</Typography>
     </Box>
   );
 };
 
-export default Reports;
+export default Rentalavailability;

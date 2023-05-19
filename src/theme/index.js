@@ -3,9 +3,9 @@ import { createTheme } from "@mui/material";
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#7367f0",
-      light: "#9e95f5",
-      dark: "#4839eb",
+      main: "#1a53ff",
+      light: "#66a3ff",
+      dark: "#1a75ff",
     },
     secondary: {
       main: "#82868b",
@@ -32,8 +32,27 @@ export const theme = createTheme({
       light: "#f08182",
       dark: "#e42728",
     },
+    background: {
+      default: "#F8F7FA",
+    },
   },
   typography: {
-    fontFamily: 'Nunito'
-  }
+    fontFamily: "Nunito",
+  },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: "rgba(47, 43, 61, 0.14) 0px 2px 6px 0px",
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          height: 40,
+        },
+      },
+    },
+  },
 });

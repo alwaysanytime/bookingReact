@@ -43,16 +43,10 @@ jwtInterceoptor.interceptors.response.use(
   }
 );
 
-const login = (data) => axios.post(`${SERVER_URL}/api/v1/login`, data);
-const signup = (data) => axios.post(`${SERVER_URL}/api/v1/register`, data);
-const getUsers = () => jwtInterceoptor.get(`${SERVER_URL}/api/auth/user`);
-const getIncomes = () => jwtInterceoptor.get(`${SERVER_URL}/api/auth/income`);
-const getexpenses = () => jwtInterceoptor.get(`${SERVER_URL}/api/auth/expense`);
+const login = (data) => axios.post(`${SERVER_URL}/api/login`, data);
+const signup = (data) => axios.post(`${SERVER_URL}/api/register`, data);
 
 export const apis = {
   login,
   signup,
-  getUsers,
-  getIncomes,
-  getexpenses,
 };

@@ -10,7 +10,7 @@ import {
 const initialState = {
   user: null,
   profile: null,
-  isLoggedin: true,
+  isLoggedin: false,
 };
 
 export const authReducer = (state = initialState, action) => {

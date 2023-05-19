@@ -9,7 +9,7 @@ const PublicLayout = ({ children }) => {
       alignItems="center"
       justifyContent="center"
       gap={10}
-      
+      padding={4}
     >
       <Box display="flex" alignContent="center" justifyContent="center">
         <img src={authBg} alt="auth-svg" width="100%"/>
